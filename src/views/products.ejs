@@ -1,0 +1,27 @@
+<%- include ('header') %>
+<a href="/new-product">New Product</a>
+<% if (entries.length) { %>
+    <% entries.forEach(function(entry) { %>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <%= entry.name%>
+            </div>
+            <div class="panel-body">
+                <%= entry.description%>
+                <% for([name, value] of Object.entries(entry.specifications)) { %>
+                    <p><%= name.replace(/_/g, ' ') 
+                                .replace(/\b\w/g, c => c.toUpperCase());%>: <%= value %></p>
+                <% } %>
+            </div>
+                <a href="/edit-entry/<%= entry.product_id %>">Edit</a>
+                <form action="/delete-product/<%= entry.product_id %>" method="POST"> 
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Delete</button>
+                </form>
+        </div>
+
+    <% }) %>
+<% } else { %> 
+    <p>No products!</p> 
+<% }%>
+<% include ('footer') %>

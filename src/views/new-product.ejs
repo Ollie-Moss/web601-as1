@@ -1,0 +1,23 @@
+<%- include ('header') %>
+<form method="POST">
+    <div>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" />
+    </div>
+    <div>
+        <label for="description">Description</label>
+        <input id="description" name="description" type="text" />
+    </div>
+    <div>
+        <label for="type">Type</label>
+        <input id="type" name="type" type="text"/>
+    </div>
+    <div>
+        <label for="category">Category</label>
+        <input id="category" name="category" type="text"/>
+    </div>
+
+    <input type="submit" value="Submit"/>
+    <a href="/products" >Cancel</a>
+</form
+<% include ('footer') %>
