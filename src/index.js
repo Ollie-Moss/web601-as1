@@ -32,7 +32,7 @@ app.use(
 );
 
 // :web directory
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // :routes
 app.use(GetProduct.router);

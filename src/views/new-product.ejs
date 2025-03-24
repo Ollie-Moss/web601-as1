@@ -1,22 +1,50 @@
 <%- include ('header') %>
-<form method="POST">
+    <% if(locals.entry) {%>
+        <form id="new-product-form" action="/edit-product/<%= entry.product_id %>" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+    <% }else { %>
+        <form id="new-product-form" method="POST">
+    <% } %>
+    <fieldset>
+    <legend>Product Information</legend>
     <div>
         <label for="name">Name</label>
-        <input id="name" name="name" type="text" />
+        <input id="name" name="name" type="text" value="<% if(locals.entry) {%> <%=entry.name%> <%} %>"/>
     </div>
     <div>
-        <label for="description">Description</label>
-        <input id="description" name="description" type="text" />
+        <label for="description" >Description</label>
+        <input id="description" name="description" type="text" value="<% if(locals.entry) {%> <%=entry.description%> <%} %>"/>
     </div>
     <div>
         <label for="type">Type</label>
-        <input id="type" name="type" type="text"/>
+        <input id="type" name="type" type="text" value="<% if(locals.entry) {%> <%=entry.type%> <%} %>"/>
     </div>
     <div>
         <label for="category">Category</label>
-        <input id="category" name="category" type="text"/>
+        <input id="category" name="category" type="text" value="<% if(locals.entry) {%> <%=entry.category%> <%} %>"/>
+    </div>
+    </fieldset>
+
+    <fieldset>
+    <legend>Specifications</legend>
+    <label for="specification">Add Specification</label>
+    <div class="flex">
+        <input id="specification" name="specfication" placeholder="Name" type="text" />
+        <button id="add-specification">+</button>
+    </div>
+    <div id="specifications">
+        <% for([key, value] of Object.entries(entry.specifications)) { %>
+            <div>
+                <label><%= key %></label>
+                <div class="flex">
+                    <input id="specifications.<%= key %>" name="specifications.<%= key %>" type="text" value="<%= value %>">
+                    <button id="deleteButton">-</button>
+                </div>
+            </div>
+        <% } %>
     </div>
 
+    </fieldset>
     <input type="submit" value="Submit"/>
     <a href="/products" >Cancel</a>
 </form
