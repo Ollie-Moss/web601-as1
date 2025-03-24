@@ -1,5 +1,5 @@
 <%- include ('header') %>
-<a href="/new-product">New Product</a>
+<a href="/products/new">New Product</a>
 <% if (entries.length) { %>
     <% entries.forEach(function(entry) { %>
         <div class="panel panel-default">
@@ -14,8 +14,8 @@
                                 .replace(/\b\w/g, c => c.toUpperCase());%>: <%= value %></p>
                 <% } %>
             </div>
-                <a href="/edit-product/<%= entry.product_id %>">Edit</a>
-                <form action="/delete-product/<%= entry.product_id %>" method="POST"> 
+                <a href="/products/edit/<%= entry.product_id %>">Edit</a>
+                <form action="/api/products/<%= entry.product_id %>" method="POST"> 
                     <input type="hidden" name="_method" value="DELETE">
                     <button onclick="(() => {
                         if(!confirm('Are you sure you wish to delete this product?')){

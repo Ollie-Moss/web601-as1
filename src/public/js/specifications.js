@@ -4,8 +4,8 @@ window.onload = () => {
     const addSpecificationButton = document.getElementById("add-specification");
 
     for(const spec of specifications.children){
-        spec.getElementsByClassName("deleteButton")[0]
-        spec.onclick = (e) => {
+        const removeButton = spec.getElementsByClassName("deleteButton")[0]
+        removeButton.onclick = (e) => {
             e.preventDefault()
             specifications.removeChild(spec);
         }

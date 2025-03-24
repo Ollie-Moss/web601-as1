@@ -6,7 +6,7 @@ import { SaveToJSON } from "../lib/data-storage.js";
  */
 const router = Router();
 
-router.delete("/delete-product/:id", async (req, res) => {
+router.delete("/api/products/:id", async (req, res) => {
     let entries = req.app.get("entries");
     const id = req.params.id;
     entries = entries.filter((entry) => entry.product_id != id);

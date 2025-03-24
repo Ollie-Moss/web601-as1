@@ -1,9 +1,9 @@
 <%- include ('header') %>
     <% if(locals.entry) {%>
-        <form id="new-product-form" action="/edit-product/<%= entry.product_id %>" method="POST">
+        <form id="new-product-form" action="/api/products/<%= entry.product_id %>" method="POST">
         <input type="hidden" name="_method" value="PUT">
     <% }else { %>
-        <form id="new-product-form" method="POST">
+        <form id="new-product-form" action="/api/products" method="POST">
     <% } %>
     <fieldset>
     <legend>Product Information</legend>
@@ -33,15 +33,17 @@
         <button id="add-specification">+</button>
     </div>
     <div id="specifications">
+    <% if(locals.entry) {%>
         <% for([key, value] of Object.entries(entry.specifications)) { %>
             <div>
                 <label><%= key %></label>
                 <div class="flex">
                     <input id="specifications.<%= key %>" name="specifications.<%= key %>" type="text" value="<%= value %>">
-                    <button id="deleteButton">-</button>
+                    <button class="deleteButton">-</button>
                 </div>
             </div>
         <% } %>
+    <% } %>
     </div>
 
     </fieldset>

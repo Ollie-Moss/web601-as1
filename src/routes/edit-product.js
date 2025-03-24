@@ -7,7 +7,7 @@ import { ParseNested } from "../lib/parse-nested.js";
  */
 const router = Router();
 
-router.get("/edit-product/:id", async (req, res) => {
+router.get("/products/edit/:id", async (req, res) => {
     let entries = req.app.get("entries");
     const id = req.params.id;
     let entry = entries.filter((e) => e.product_id == id)[0];
@@ -20,7 +20,7 @@ router.get("/edit-product/:id", async (req, res) => {
     res.render("new-product", { entry: entry });
 });
 
-router.put("/edit-product/:id", async (req, res) => {
+router.put("/api/products/:id", async (req, res) => {
     /**
      * @type {Array}
      *

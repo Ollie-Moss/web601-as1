@@ -8,12 +8,12 @@ import { ParseNested } from "../lib/parse-nested.js";
  */
 const router = Router();
 
-router.get("/new-product", (req, res) => {
+router.get("/products/new", (req, res) => {
     const entries = req.app.get("entries");
     res.render("new-product");
 });
 
-router.post("/new-product", (req, res) => {
+router.post("/api/products", (req, res) => {
     const entries = req.app.get("entries");
     // validation required
 
