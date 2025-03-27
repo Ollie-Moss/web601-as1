@@ -19,7 +19,8 @@ LoadFromJSON("src/products.json").then((data) => {
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
     methodOverride(function (req, res) {
         if (req.body && typeof req.body === "object" && "_method" in req.body) {

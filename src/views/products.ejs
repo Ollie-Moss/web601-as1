@@ -1,33 +1,43 @@
-<%- include ('header') %>
-<a href="/products/new">New Product</a>
-<% if (entries.length) { %>
-    <% entries.forEach(function(entry) { %>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <%= entry.name%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Products</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+    <a href="/products/new">New Product</a>
+    <% if (entries.length) { %>
+        <% entries.forEach(function(entry) { %>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <%= entry.name%>
+                </div>
+                <div class="panel-body">
+                    <p><%= entry.description%></p>
+                    <strong>Specifications</strong>
+                    <% for([name, value] of Object.entries(entry.specifications)) { %>
+                        <p><%= name.replace(/_/g, ' ') 
+                                    .replace(/\b\w/g, c => c.toUpperCase());%>: <%= value %></p>
+                    <% } %>
+                </div>
+                    <a href="/products/edit/<%= entry.product_id %>">Edit</a>
+                    <form action="/api/products/<%= entry.product_id %>" method="POST"> 
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button onclick="(() => {
+                            if(!confirm('Are you sure you wish to delete this product?')){
+                                event.stopImmediatePropagation()
+                                event.preventDefault();
+                            }
+                            })()">Delete</button>
+                    </form>
             </div>
-            <div class="panel-body">
-                <p><%= entry.description%></p>
-                <strong>Specifications</strong>
-                <% for([name, value] of Object.entries(entry.specifications)) { %>
-                    <p><%= name.replace(/_/g, ' ') 
-                                .replace(/\b\w/g, c => c.toUpperCase());%>: <%= value %></p>
-                <% } %>
-            </div>
-                <a href="/products/edit/<%= entry.product_id %>">Edit</a>
-                <form action="/api/products/<%= entry.product_id %>" method="POST"> 
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button onclick="(() => {
-                        if(!confirm('Are you sure you wish to delete this product?')){
-                            event.stopImmediatePropagation()
-                            event.preventDefault();
-                        }
-                        })()">Delete</button>
-                </form>
-        </div>
 
-    <% }) %>
-<% } else { %> 
-    <p>No products!</p> 
-<% }%>
-<% include ('footer') %>
+        <% }) %>
+    <% } else { %> 
+        <p>No products!</p> 
+    <% }%>
+</body>
+</html>
