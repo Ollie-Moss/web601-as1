@@ -15,15 +15,20 @@ router.get("/products/new", (req, res) => {
 });
 
 router.post("/api/products", CheckRedirect, (req, res) => {
+    console.log("POST /api/products");
     // Get current products list
     const entries = req.app.get("entries");
 
     // Detirmine whether specification
-    // input format needs to have nested 
+    // input format needs to have nested
     // value fixed
-    const specifications = req.query.HTMLFormFix
-        ? ParseNested(req.body, "specifications")
-        : req.body.specifications;
+    let specifications;
+    if (req.query.HTMLFormFix) {
+        console.log("HTMLFormFix enabled, nesting specifications");
+        specifications = ParseNested(req.body, "specifications");
+    }else{
+        specifications = req.body.specifications;
+    }
 
     // Create new entry
     const entry = {
@@ -32,20 +37,25 @@ router.post("/api/products", CheckRedirect, (req, res) => {
         description: req.body.description ?? "",
         type: req.body.type ?? "",
         category: req.body.category ?? "",
-        specifications: specifications ?? {}
+        specifications: specifications ?? {},
     };
+    console.log(`Created Product:\n`, entry);
 
+    console.log("Adding to products list, and saving to database")
     // Add to entries, save to JSON and update locals
     entries.push(entry);
     req.app.set("entries", entries);
     SaveToJSON("src/products.json", entries);
 
+    console.log("Status: 200 OK")
     // Status 200 OK and redirect if required
     res.status(200);
-    if(req.locsl.shouldRedirect){
+    if (res.locals.shouldRedirect) {
+        console.log("Redirect enabled\nRedirecting to /products")
         return res.redirect("/products");
     }
 
+    console.log("Sending new product")
     // Send new entry with ID
     res.send(entry);
 });
