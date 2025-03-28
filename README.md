@@ -21,7 +21,7 @@ These CRUD operations can be done through both the page routes and API routes pr
 ## Getting Started
 Clone this repository with `git clone https://github.com/Ollie-Moss/web601-as1`.<br />
 To install the required dependencies run `npm install` inside the project directory.<br />
-Start the program with `npm run dev` and navigate to `http://localhost:3000` to access the webpage.<br />
+Start the program with `npm run dev` and navigate to `http://localhost:3000` to access the web ui.<br />
 
 ---
 
