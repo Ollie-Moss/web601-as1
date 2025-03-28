@@ -137,7 +137,7 @@ Create a new product in the database.
 **Description:**  
 This route creates a new product using the data sent in the request body. It responds with the newly created product. The request supports two query parameters: `HTMLFormFix` and `redirect`.
 
-- **HTMLFormFix:** When enabled, it allows you to send nested JSON objects (like `specifications`) as flattened top-level key-value pairs prefixed with `specifications.`. The server will parse this and restructure the data.
+- **HTMLFormFix:** When enabled, it allows you to send nested JSON objects, in this case `specifications`, as key-value pairs prefixed with `specifications.`. The server will parse this and strucute the data accordingling.
 - **redirect:** If true, redirects to the `/products` page after successful creation.
 
 **Example Input:**
@@ -212,7 +212,7 @@ Content-Type: application/json; charset=utf-8
 Update an existing product.
 
 **Description:**  
-This route updates a product with the given `id` using the data sent in the request body.
+This route updates a product with the given `id` using the data sent in the request body. This route also supports the two query paramters `HTMLFormFix` and `redirect`. In this case `redirect` will redirect to `/404` if no product is found.
 
 **Example Request:**
 ```http
