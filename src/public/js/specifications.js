@@ -1,47 +1,57 @@
 window.onload = () => {
+    // Get requried elements
     const specificationKey = document.getElementById("specification");
     const specifications = document.getElementById("specifications");
     const addSpecificationButton = document.getElementById("add-specification");
 
-    for(const spec of specifications.children){
-        const removeButton = spec.getElementsByClassName("deleteButton")[0]
+    // Ensure that each delete button of existing specifications
+    // have onclick event
+    for (const spec of specifications.children) {
+        const removeButton = spec.getElementsByClassName("deleteButton")[0];
         removeButton.onclick = (e) => {
-            e.preventDefault()
+            e.preventDefault();
             specifications.removeChild(spec);
-        }
+        };
     }
 
+    // Create and add a new specification entry
     addSpecificationButton.onclick = (e) => {
         e.preventDefault();
         const key = specificationKey.value;
 
-        const specification = document.createElement('div');
+        // Root element
+        const specification = document.createElement("div");
 
-        const label = document.createElement('label');
+        // Label with specification key
+        const label = document.createElement("label");
         label.for = `specifications.${key}`;
         label.textContent = key;
 
-        const flexWrapper = document.createElement('div');
-        flexWrapper.classList.add("flex")
+        // Flex wrapper to ensure layout is correct
+        const flexWrapper = document.createElement("div");
+        flexWrapper.classList.add("flex");
 
-        const input = document.createElement('input');
+        // Add Input field
+        const input = document.createElement("input");
         input.id = `specifications.${key}`;
         input.name = `specifications.${key}`;
-        input.type = "text"
+        input.type = "text";
 
-        const removeButton = document.createElement('button')
-        removeButton.textContent = "-"
+        // Remove button with onclick event
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "-";
         removeButton.onclick = (e) => {
-            e.preventDefault()
+            e.preventDefault();
             specifications.removeChild(specification);
-        }
+        };
 
+        // Add elements to their respective places
         flexWrapper.appendChild(input);
         flexWrapper.appendChild(removeButton);
 
         specification.appendChild(label);
-        specification.appendChild(flexWrapper)
+        specification.appendChild(flexWrapper);
 
-        specifications.appendChild(specification)
+        specifications.appendChild(specification);
     };
 };

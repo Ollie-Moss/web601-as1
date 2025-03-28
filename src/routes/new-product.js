@@ -2,27 +2,30 @@ import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { SaveToJSON } from "../lib/data-storage.js";
 import { ParseNested } from "../lib/parse-nested.js";
+import { CheckRedirect } from "../lib/checkRedirect.js";
 
 /**
  * @type {Router}
  */
 const router = Router();
 
+// Render new products page
 router.get("/products/new", (req, res) => {
-    const entries = req.app.get("entries");
     res.render("new-product");
 });
 
-router.post("/api/products", (req, res) => {
+router.post("/api/products", CheckRedirect, (req, res) => {
+    // Get current products list
     const entries = req.app.get("entries");
 
+    // Detirmine whether specification
+    // input format needs to have nested 
+    // value fixed
     const specifications = req.query.HTMLFormFix
         ? ParseNested(req.body, "specifications")
         : req.body.specifications;
 
-    console.log(req.body);
-    console.log(req.body)
-
+    // Create new entry
     const entry = {
         product_id: uuidv4(),
         name: req.body.name ?? "",
@@ -32,15 +35,18 @@ router.post("/api/products", (req, res) => {
         specifications: specifications ?? {}
     };
 
-    // add to entries
+    // Add to entries, save to JSON and update locals
     entries.push(entry);
     req.app.set("entries", entries);
     SaveToJSON("src/products.json", entries);
 
-    if(req.query.redirect){
-        res.redirect("/products");
-        return;
+    // Status 200 OK and redirect if required
+    res.status(200);
+    if(req.locsl.shouldRedirect){
+        return res.redirect("/products");
     }
+
+    // Send new entry with ID
     res.send(entry);
 });
 
