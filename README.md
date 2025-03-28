@@ -5,7 +5,7 @@ These routes allow for basic CRUD operations of viewing, creating, editing, and 
 These CRUD operations can be done through both the page routes and API routes provided.
 
 ## Table of Contents
-
+- [Getting Started](#getting-started)
 - [Page Routes](#page-routes)
   - [GET `/products`](#get-products)
   - [GET `/products/new`](#get-productsnew)
@@ -15,6 +15,13 @@ These CRUD operations can be done through both the page routes and API routes pr
   - [POST `/api/products`](#post-apiproducts)
   - [PUT `/api/products/:id`](#put-apiproductsid)
   - [DELETE `/api/products/:id`](#delete-apiproductsid)
+
+---
+
+## Getting Started
+Clone this repository with `git clone https://github.com/Ollie-Moss/web601-as1`.
+To install the required dependencies run `npm install` inside the project directory.
+Start the program with `npm run dev` and navigate to `http://localhost:3000` to access the webpage.
 
 ---
 
