@@ -1,6 +1,8 @@
 # Product Management API
 
-This repository provides a set of routes to manage products in a system. These routes allow for viewing, creating, editing, and deleting products through both page routes and API routes to perform these CRUD operations.
+This repository provides a set of routes to manage products in a system. 
+These routes allow for basic CRUD operations of viewing, creating, editing, and deleting products.
+These CRUD operations can be done through both the page routes and API routes provided.
 
 ## Table of Contents
 
@@ -263,12 +265,6 @@ HTTP/1.1 200 OK
 
 OK
 ```
-
----
-
-## Conclusion
-
-This repository provides a comprehensive set of routes for managing products. Whether you're using the page routes for UI interactions or the API routes for programmatic access, this system allows for full CRUD operations on products.
 
 ---
 
