@@ -18,10 +18,10 @@ router.get("/products/edit/:id", async (req, res) => {
         res.status(404).render("404");
         return;
     }
-    res.render("new-product", { entry: entry });
+    res.render("new-product", { entry: entry, editing: true });
 });
 
-router.put("/api/products/:id", async (req, res) => {
+router.put("/api/products/:id", async (req, res, next) => {
     // Just to help with LSP auto suggestions
     /**
      * @type {Array}
@@ -78,20 +78,27 @@ router.put("/api/products/:id", async (req, res) => {
     // Update entry with new values
     entries[index] = newEntry;
 
-    console.log("Updating products list, and saving to database")
+    console.log("Updating products list, and saving to database");
+
     // Save to JSON and update locals
-    await SaveToJSON("src/products.json", entries);
+    try {
+        await SaveToJSON("src/products.json", entries);
+    } catch (error) {
+        console.log(`Error while saving to JSON: ${error.message}`);
+        next(error);
+        return;
+    }
     req.app.set("entries", entries);
 
     // Return 200 OK
-    console.log("Status: 200 OK")
+    console.log("Status: 200 OK");
     res.status(200);
     if (res.locals.shouldRedirect) {
         console.log("Redirect enabled\nRedirecting to /products");
         return res.redirect("/products");
     }
 
-    console.log("Sending updated product")
+    console.log("Sending updated product");
     // Send updated entry with new values
     res.send(entries[index]);
 });

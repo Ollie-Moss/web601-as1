@@ -1,0 +1,46 @@
+[
+    {
+        "name": "GET Test",
+        "status": "200",
+        "method": "GET",
+        "route": "http://localhost:3000/api/products"
+    },
+    {
+        "name": "POST TEST",
+        "status": "200",
+        "method": "POST",
+        "route": "http://localhost:3000/api/products",
+        "body": {
+            "name": "Product #1",
+            "description": "This is a description",
+            "type": "This is a type",
+            "category": "This is a category",
+            "specifications": {
+                "Specification #1":"this is a specification"
+            }
+        },
+        "id": "true"
+    },
+    {
+        "name": "PUT Test",
+        "status": "200",
+        "method": "PUT",
+        "route": "http://localhost:3000/api/products/",
+        "body": {
+            "name": "Product #1 - Updated",
+            "description": "This is a new description",
+            "type": "This is a new type",
+            "category": "This is a new category",
+            "specifications": {
+                "Specification #1":"this is a specification",
+                "Specification #2":"this is a different specification"
+            }
+        }
+    },
+    {
+        "name": "DELETE TEST",
+        "status": "200",
+        "method": "DELETE",
+        "route": "http://localhost:3000/api/products/"
+    }
+]

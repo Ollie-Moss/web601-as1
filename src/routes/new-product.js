@@ -14,7 +14,7 @@ router.get("/products/new", (req, res) => {
     res.render("new-product");
 });
 
-router.post("/api/products", CheckRedirect, (req, res) => {
+router.post("/api/products", CheckRedirect, async (req, res, next) => {
     console.log("POST /api/products");
     // Get current products list
     const entries = req.app.get("entries");
@@ -44,8 +44,15 @@ router.post("/api/products", CheckRedirect, (req, res) => {
     console.log("Adding to products list, and saving to database")
     // Add to entries, save to JSON and update locals
     entries.push(entry);
+    // Save to JSON and update locals
+    try {
+        await SaveToJSON("src/products.json", entries);
+    } catch (error) {
+        console.log(`Error while saving to JSON: ${error.message}`);
+        next(error);
+        return;
+    }
     req.app.set("entries", entries);
-    SaveToJSON("src/products.json", entries);
 
     console.log("Status: 200 OK")
     // Status 200 OK and redirect if required

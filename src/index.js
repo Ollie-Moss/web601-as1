@@ -59,7 +59,8 @@ app.use(EditProduct.router);
 app.use(DeleteProduct.router);
 
 // error handling
-app.use((req, res) => {
+app.use((error, req, res) => {
+    console.log(error);
     res.status(404).render("404");
 });
 

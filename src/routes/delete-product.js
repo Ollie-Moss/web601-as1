@@ -7,11 +7,13 @@ import { CheckRedirect } from "../lib/checkRedirect.js";
  */
 const router = Router();
 
-router.delete("/api/products/:id", CheckRedirect, async (req, res) => {
+router.use(CheckRedirect);
+
+router.delete("/api/products/:id", async (req, res, next) => {
     // Get current entries and retrieve id
     let entries = req.app.get("entries");
     const id = req.params.id;
-    console.log(`DELETE /api/products/${id}`)
+    console.log(`DELETE /api/products/${id}`);
     console.log(`Retrieving Product with id: ${id}`);
 
     // Find product in list
@@ -36,7 +38,15 @@ router.delete("/api/products/:id", CheckRedirect, async (req, res) => {
     console.log("Updating database with new product list");
     // Remove product from list and save to JSON and update locals
     entries = entries.filter((entry) => entry.product_id != id);
-    await SaveToJSON("src/products.json", entries);
+
+    try {
+        await SaveToJSON("src/products.json", entries);
+    } catch (error) {
+        console.log(`Error while saving to JSON: ${error.message}`);
+        next(error);
+        return;
+    }
+
     req.app.set("entries", entries);
 
     // Return 200 OK

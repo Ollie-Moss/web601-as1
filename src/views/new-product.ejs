@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <% if(locals.entry) {%>
+            <% if(locals.editing) {%>
                 <title>Editing <%= entry.name %></title>
             <% }else { %>
                 <title>New Product</title>
@@ -13,7 +13,7 @@
         <script src="/js/specifications.js"></script>
     </head>
     <body>
-        <% if(locals.entry) {%>
+        <% if(locals.editing) {%>
             <form id="new-product-form" action="/api/products/<%= entry.product_id %>?HTMLFormFix=true&redirect=true" method="POST">
             <input type="hidden" name="_method" value="PUT" />
         <% }else { %>
@@ -23,19 +23,19 @@
             <legend>Product Information</legend>
             <div>
                 <label for="name">Name</label>
-                <input id="name" name="name" type="text" value="<% if(locals.entry) {%> <%=entry.name%> <%} %>"/>
+                <input id="name" name="name" type="text" value="<% if(locals.editing) {%> <%=entry.name%> <%} %>"/>
             </div>
             <div>
                 <label for="description" >Description</label>
-                <textarea id="description" name="description" type="text" ><% if(locals.entry) {%> <%=entry.description%> <%} %></textarea>
+                <textarea id="description" name="description" type="text" ><% if(locals.editing) {%> <%=entry.description%> <%} %></textarea>
             </div>
             <div>
                 <label for="type">Type</label>
-                <input id="type" name="type" type="text" value="<% if(locals.entry) {%> <%=entry.type%> <%} %>"/>
+                <input id="type" name="type" type="text" value="<% if(locals.editing) {%> <%=entry.type%> <%} %>"/>
             </div>
             <div>
                 <label for="category">Category</label>
-                <input id="category" name="category" type="text" value="<% if(locals.entry) {%> <%=entry.category%> <%} %>"/>
+                <input id="category" name="category" type="text" value="<% if(locals.editing) {%> <%=entry.category%> <%} %>"/>
             </div>
             </fieldset>
 
@@ -47,7 +47,7 @@
                 <button id="add-specification">+</button>
             </div>
             <div id="specifications">
-            <% if(locals.entry) {%>
+            <% if(locals.editing) {%>
                 <% for([key, value] of Object.entries(entry.specifications)) { %>
                     <div>
                         <label><%= key %></label>
